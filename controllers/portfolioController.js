@@ -66,4 +66,11 @@ const updateSection = async (req, res) => {
     res.status(200).json(section);
 }
 
-export {}
+module.exports = {
+    getPorfolio,
+    createSection,
+    createImage,
+    deleteSection,
+    updateSection,
+    
+}

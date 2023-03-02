@@ -89,5 +89,3 @@ adminSchema.statics.reset = async function(email, password) {
 }
 
 module.exports = mongoose.model('Admin', adminSchema);
-
-export {}

@@ -4,8 +4,9 @@ const Schema = mongoose.Schema;
 
 //Array Schemas
 
-const sizeSchema = new Schema({
-
+const colorSchema = new Schema({
+    name: String,
+    hex: String
 })
 
 
@@ -25,14 +26,12 @@ const productSchema = new Schema({
     size: [{
         type: String
     }],
-    // backgroundColor: {
-    //     type: String,
-    //     required: true,
-    // }
+    backgroundColor: [{
+        colorSchema
+    }]
 
-    // Respecto a lo de arriba preguntar si son unos colores predeterminados o si puede elegir cualquiera el cliente. 
+    // Meter campo de fecha de entrega? Cómo va? EH? EH?
+ 
 });
 
 module.exports = new mongoose.model('Product', productSchema);
-
-export {}

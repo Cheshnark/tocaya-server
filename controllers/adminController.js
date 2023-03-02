@@ -145,4 +145,11 @@ const postResetPassword = async (req, res) => {
 
 }
 
-export {}
+module.exports = {
+    createAdmin,
+    loginAdmin,
+    deleteAdmin,
+    postPassword,
+    getPassword,
+    postResetPassword
+}

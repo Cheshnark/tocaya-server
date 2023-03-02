@@ -26,10 +26,10 @@ const getProduct = async  (req, res) => {
 
 //POST a product
 const postProduct = async (req, res) => {
-    const {name, description, img, size } = req.body;
+    const {name, description, img, size, backgroundColor } = req.body;
 
     try {
-        const product = await Shop.create({name, description, img, size});
+        const product = await Shop.create({name, description, img, size, backgroundColor});
         res.status(200).json(product);
     }catch(error) {
         return res.status(404).json({error:error.message});
@@ -44,7 +44,7 @@ const updateProduct = async (req, res) => {
         return res.status(404).json({error:'Product does not exist'});
     };
 
-    const product = await Shop.findOneAndUpdate (
+    const product = await Shop.findOneAndUpdate(
         {_id:id},
         {...req.body}
     )
@@ -73,3 +73,10 @@ const deleteProduct = async (req, res) => {
     return res.status(200).json(product);
 }
 
+module.exports = {
+    getProducts,
+    getProduct,
+    postProduct,
+    updateProduct,
+    deleteProduct
+}
