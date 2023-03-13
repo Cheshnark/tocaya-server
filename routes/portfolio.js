@@ -1,4 +1,7 @@
 const express = require('express');
+const multer = require('multer');
+
+const upload = multer({ dest: './images' });
 
 const { 
     getPorfolio,
@@ -17,13 +20,13 @@ router.get('/', getPorfolio);
 router.post('section', createSection)
 
 //POST add image
-router.post('/section/image', createImage);
+router.post('/section/image',upload.single('profilePicture'), createImage);
 
 //DELETE section
 router.delete('/section', deleteSection);
 
 //UPDATE section
-router.patch('/section', updateSection);
+router.patch('/section',upload.single('profilePicture'), updateSection);
 
 // De delete, update y post tengo que ver si puedo agregar, borrar y editar imágenes vía ID o si puedo 
 // hacer un patch para modificar esa información y cómo hacerlo. 

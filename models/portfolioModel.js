@@ -14,13 +14,8 @@ const imageSchema = new Schema({
 })
 
 const portfolioSchema = new Schema({
-    personal: [{
-        imageSchema
-    }],
-    editorial: [{
-        imageSchema
-    }],
-    children: [{
+    name: String,
+    images: [{
         imageSchema
     }]
 })

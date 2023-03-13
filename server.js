@@ -20,6 +20,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(express.static('public'));
+app.use(express.static('images'));
 
 //Esto de aquí abajo, ¿qué coño hace?
 app.use((req, res, next) => {
@@ -48,3 +50,4 @@ app.use('/admin', adminRoutes);
 app.use('/portfolio', portfolioRoutes);
 app.use('/profile', profileRoutes);
 app.use('/shop', shopRoutes);
+app.use('/images', express.static('images'));

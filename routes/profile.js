@@ -1,8 +1,12 @@
 const express = require('express');
+const multer = require('multer');
+
+const upload = multer({ dest: './images' });
 
 const {
     getProfile,
-    updateProfile
+    updateProfile,
+    uploadImage
 } = require('../controllers/profileController');
 
 const router = express.Router();
@@ -11,4 +15,9 @@ const router = express.Router();
 router.get('/', getProfile);
 
 //UPDATE profile
-router.patch('/', updateProfile);
+router.patch('/', upload.single('profilePicture'), updateProfile);
+
+//POST upload image
+router.post('/upload', upload.single('profilePicture'), uploadImage);
+
+module.exports = router;

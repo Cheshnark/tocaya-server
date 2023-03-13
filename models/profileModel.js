@@ -6,11 +6,19 @@ const Schema = mongoose.Schema;
 
 const profileSchema = ({
     name: String,
+    description: String,
     profilePicture: {
-        data: Buffer,
-        contentType: String
-    },
-    description: String
+        fieldname: String,
+        originalname: String,
+        encoding: String,
+        mimetype: String,
+        destination: String,
+        filename: String,
+        path: String,
+        size: Number
+      }
+      
+    
 });
 
 module.exports = new mongoose.model('Profile', profileSchema);
