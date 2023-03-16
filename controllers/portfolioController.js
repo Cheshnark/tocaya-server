@@ -7,26 +7,43 @@ const getPorfolio = async (req, res) => {
     res.status(200).json(portfolio);
 };
 
-//CREATE new section
+//POST new section
 const createSection = async (req, res) => {
-    const {sectionName} = req.params;
+    const name = req.body.name;
+    console.log(name);
+    const images = [];
 
     try {
-        const section = await Portfolio.create({sectionName});
-        res.statys(200).json(section);
+        const section = await Portfolio.create({name, images});
+        console.log(section);
+        res.status(200).json(section);
     }catch(error) {
         res.status(400).json({error:error.message});
     }
 }
 
-//CREATE new image
+//PATCH new image
 const createImage = async (req, res) => {
-    //Esta vaina tengo que hacerla en parte con el multer ese
+    try {
+        const id = req.body;
+        const portfolioImage = req.file;
+        
+        const section = await Portfolio.findOne({_id:id});
+        let imagesArray = section.images;
+        imagesArray.push(portfolioImage);
+        console.log(imagesArray);
+    
+        const picture = await Portfolio.findOneAndUpdate({_id:id}, {$set: {images:imagesArray}}, {new: true});
+        console.log(picture);
+        res.status(200).json(picture);
+      } catch (error) {
+          return res.status(404).json({error:error.message});
+      }
 }
 
 //DELETE section
 const deleteSection = async (req, res) => {
-    const {id} = req.params;
+    const {id} = req.body;
 
     if(!mongoose.Types.ObjectId.isValid(id)){
         return res.status(400).json({error: 'Section does not exist'});

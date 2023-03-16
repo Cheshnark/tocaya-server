@@ -17,16 +17,16 @@ const router = express.Router();
 router.get('/', getPorfolio);
 
 //POST add section
-router.post('section', createSection)
+router.post('/section', createSection)
 
 //POST add image
-router.post('/section/image',upload.single('profilePicture'), createImage);
+router.patch('/section/image',upload.single('portfolioImage'), createImage);
 
 //DELETE section
 router.delete('/section', deleteSection);
 
 //UPDATE section
-router.patch('/section',upload.single('profilePicture'), updateSection);
+router.patch('/section', updateSection);
 
 // De delete, update y post tengo que ver si puedo agregar, borrar y editar imágenes vía ID o si puedo 
 // hacer un patch para modificar esa información y cómo hacerlo. 

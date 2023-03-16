@@ -45,7 +45,6 @@ const updateProfile = async (req, res) => {
             };
         }
     
-        console.log(bodyObject);
         const profile = await Profile.findOneAndUpdate({_id:id}, {$set: bodyObject}, {new: true});
         console.log(profile);
         res.status(200).json(profile);
