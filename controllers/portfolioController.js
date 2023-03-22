@@ -1,5 +1,6 @@
 const Portfolio = require('../models/portfolioModel');
 const mongoose = require('mongoose');
+const { unlink } = require('node:fs/promises');
 
 //GET portfolio
 const getPorfolio = async (req, res) => {
@@ -59,28 +60,41 @@ const deleteSection = async (req, res) => {
 };
 
 //DELETE image
-//Ver como de necesario es esto, si cada elemento dentro de la base de datos tiene una id única, podría en principio
-// eliminar tanto secciones como imágenes con eso. Para ello tendría que crear una id a cada imagen con new Date o
-// un método similar.
+const deleteImage = async (req, res) => {
+    try {
+        const {id, filename} = req.body;
+
+        const section = await Portfolio.findOne({_id:id});
+        const filteredSection = await section.images.filter((image) => {
+            return image.filename !== filename});
+    
+        const picture = await Portfolio.findOneAndUpdate({_id:id}, {$set: {images:filteredSection}}, {new: true});
+        
+        if(picture) {
+            await unlink(`./images/${filename}`, (err) => {
+                if (err) throw err;
+                console.log('successfully deleted /tmp/hello');
+                });
+        }
+        
+        res.status(200).json(picture);
+      } catch (error) {
+          return res.status(404).json({error:error.message});
+      }
+}
+
 
 //UPDATE section
 const updateSection = async (req, res) => {
-    const {id} = req.params;
-
-    if(!mongoose.Types.ObjectId.isValid(id)){
-        return res.status(404).json({error:'Section does not exist'});
-    };
-
-    const section = await Portfolio.findOneAndUpdate(
-        {_id:id},
-        {...req.body}
-    );
-
-    if(!section) {
-        return res.status(404).json({error:'Section does not exist'})
-    }
-
-    res.status(200).json(section);
+    try {
+        const {name, id} = req.body;
+    
+        const picture = await Portfolio.findOneAndUpdate({_id:id}, {$set: {name:name}}, {new: true});
+        console.log(picture);
+        res.status(200).json(picture);
+      } catch (error) {
+          return res.status(404).json({error:error.message});
+      }
 }
 
 module.exports = {
@@ -88,6 +102,7 @@ module.exports = {
     createSection,
     createImage,
     deleteSection,
+    deleteImage,
     updateSection,
     
 }

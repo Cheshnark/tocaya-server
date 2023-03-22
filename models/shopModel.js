@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 //Array Schemas
-
 const colorSchema = new Schema({
     name: String,
     hex: String
@@ -12,25 +11,39 @@ const colorSchema = new Schema({
 
 //Schemas 
 const productSchema = new Schema({
-    name:{
+    productTitle:{
         type: String,
         required: true
     },
-    description: {
+    productInnerTitle:{
         type: String
     },
-    img: [{
-        data: Buffer,
-        contentType: String
+    productDescription: {
+        type: String
+    },
+    productInnerDescription: {
+        type: String
+    },
+    images: [{
+        fieldname: String,
+        originalname: String,
+        encoding: String,
+        mimetype: String,
+        destination: String,
+        filename: String,
+        path: String,
+        size: Number
     }],
     size: [{
         type: String
     }],
     backgroundColor: [{
-        colorSchema
+        name: {
+            type: String,
+            unique: true
+        },
+        hex: String
     }]
-
-    // Meter campo de fecha de entrega? Cómo va? EH? EH?
  
 });
 

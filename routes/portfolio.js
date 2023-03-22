@@ -8,6 +8,7 @@ const {
     createSection,
     createImage,
     deleteSection,
+    deleteImage,
     updateSection,
  } = require('../controllers/portfolioController');
 
@@ -24,6 +25,9 @@ router.patch('/section/image',upload.single('portfolioImage'), createImage);
 
 //DELETE section
 router.delete('/section', deleteSection);
+
+//DELETE image
+router.delete('/section/image', deleteImage);
 
 //UPDATE section
 router.patch('/section', updateSection);
