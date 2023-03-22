@@ -1,7 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 
-const upload = multer({ dest: './images' });
+const upload = multer({ dest: './images/portfolio' });
 
 const { 
     getPorfolio,

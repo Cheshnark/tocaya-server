@@ -71,7 +71,7 @@ const deleteImage = async (req, res) => {
         const picture = await Portfolio.findOneAndUpdate({_id:id}, {$set: {images:filteredSection}}, {new: true});
         
         if(picture) {
-            await unlink(`./images/${filename}`, (err) => {
+            await unlink(`./images/portfolio/${filename}`, (err) => {
                 if (err) throw err;
                 console.log('successfully deleted /tmp/hello');
                 });

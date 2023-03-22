@@ -1,5 +1,6 @@
 const Profile = require('../models/profileModel');
 const mongoose = require('mongoose');
+const { unlink } = require('node:fs/promises');
 
 //GET profile
 const getProfile = async (req, res) => {
@@ -11,9 +12,16 @@ const getProfile = async (req, res) => {
 const updateProfile = async (req, res) => {
     try {
         const { body, file } = req;
-        const {id, name, description} = body;
+        const {id, name, description, oldFileName} = body;
         const profilePicture = file;
         let bodyObject = {};
+
+        if(profilePicture) {
+            await unlink(`./images/${oldFileName}`, (err) => {
+                if (err) throw err;
+                console.log('successfully deleted picture');
+                });
+        }
         
         if(name.length < 1 && description.length < 1) {
             bodyObject = {
@@ -46,7 +54,6 @@ const updateProfile = async (req, res) => {
         }
     
         const profile = await Profile.findOneAndUpdate({_id:id}, {$set: bodyObject}, {new: true});
-        console.log(profile);
         res.status(200).json(profile);
       } catch (error) {
           return res.status(404).json({error:error.message});
