@@ -8,23 +8,6 @@ const getProducts = async (req, res) => {
     res.status(200).json(products);
 }
 
-// //GET one product
-// const getProduct = async  (req, res) => {
-//     const {id} = req.params;
-
-//     if(!mongoose.Type.ObjectId.isValid(id)){
-//         return res.status(404).json({error: 'Product does not exist'});
-//     };
-
-//     const product = await Shop.findById(id);
-
-//     if(!product){
-//         return res.status(404).json({error: 'Product does not exist'});
-//     };
-
-//     res.status(200).json(product);
-// }
-
 //POST a product
 const postProduct = async (req, res) => {
     const {productTitle} = req.body;

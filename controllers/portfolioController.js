@@ -52,6 +52,15 @@ const deleteSection = async (req, res) => {
      
     const section = await Portfolio.findOneAndDelete({_id:id});
 
+    if(section.images.length > 0) {
+        section.images.forEach(async s => {
+            await unlink(`./images/portfolio/${s.filename}`, (err) => {
+                if (err) throw err;
+                console.log('successfully deleted /tmp/hello');
+            });
+        })
+    }
+
     if(!section) {
         return res.status(404).json({error:'Section does not exist'});
     };
