@@ -1,5 +1,6 @@
 const express = require('express');
 const multer = require('multer');
+const requireAuth = require('../middleware/requireAuth');
 
 const upload = multer({ dest: './images/portfolio' });
 
@@ -16,6 +17,9 @@ const router = express.Router();
 
 //GET portfolio
 router.get('/', getPorfolio);
+
+//Require auth for all routes below
+router.use(requireAuth);
 
 //POST add section
 router.post('/section', createSection)

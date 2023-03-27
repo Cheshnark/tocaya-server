@@ -22,7 +22,7 @@ const adminSchema = new Schema({
 adminSchema.statics.signup = async function(email, password) {
     //Validation
     if(!email || !password) {
-        throw Error('Han de rellenarse todos los vampos');
+        throw Error('Han de rellenarse todos los campos');
     };
     if(!validator.isEmail(email)) {
         throw Error('El email no es válido');
@@ -41,13 +41,13 @@ adminSchema.statics.signup = async function(email, password) {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
 
-    const user = await this.create({email, password: hash});
+    const admin = await this.create({email, password: hash});
 
-    return user
+    return admin
 }
 
 // Static login method
-adminSchema.static.login = async function (email, password) {
+adminSchema.statics.login = async function (email, password) {
 
     if(!email || !password) {
         throw Error('Deben rellenarse todos los campos');
@@ -81,11 +81,11 @@ adminSchema.statics.reset = async function(email, password) {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
 
-    const user = await this.updateOne({email:email}, {$set: {
+    const admin = await this.updateOne({email:email}, {$set: {
         password:hash
     }});
 
-    return user;
+    return admin;
 }
 
 module.exports = mongoose.model('Admin', adminSchema);

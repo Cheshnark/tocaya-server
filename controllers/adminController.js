@@ -16,7 +16,7 @@ let transporter = nodemailer.createTransport({
 
 //Token
 const createToken = (_id) => {
-    return jwt.sign({_id}, process.env.SECRET, {expiresIn:'3d'});
+    return jwt.sign({_id}, process.env.SECRET, {expiresIn:'1d'});
 };
 
 //Create new admin
@@ -39,7 +39,7 @@ const loginAdmin = async (req, res) => {
     try {
         const admin = await Admin.login(email, password);
         const token = createToken(admin._id);
-        res.status(400).json({email, token});
+        res.status(200).json({email, token});
     }catch(error) {
         res.status(400).json({error:error.message})
     }

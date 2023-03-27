@@ -16,7 +16,9 @@ const updateProfile = async (req, res) => {
         const profilePicture = file;
         let bodyObject = {};
 
-        if(profilePicture) {
+        console.log(profilePicture);
+
+        if(JSON.stringify(profilePicture) !== JSON.stringify(oldFileName)) {
             await unlink(`./images/${oldFileName}`, (err) => {
                 if (err) throw err;
                 console.log('successfully deleted picture');

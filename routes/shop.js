@@ -1,5 +1,6 @@
 const express = require('express');
 const multer = require('multer');
+const requireAuth = require('../middleware/requireAuth');
 
 const upload = multer({ dest: './images/shop' });
 
@@ -16,6 +17,9 @@ const router = express.Router();
 
 //GET all products
 router.get('/', getProducts);
+
+//Require auth for all routes below
+router.use(requireAuth);
 
 //POST product
 router.post('/product', postProduct);
