@@ -6,6 +6,7 @@ const upload = multer({ dest: './images/shop' });
 
 const {
     getProducts,
+    getProduct,
     postProduct,
     updateProduct,
     deleteProduct,
@@ -17,6 +18,9 @@ const router = express.Router();
 
 //GET all products
 router.get('/', getProducts);
+
+//GET all products
+router.get('/:id', getProduct);
 
 //Require auth for all routes below
 router.use(requireAuth);

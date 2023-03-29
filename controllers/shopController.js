@@ -8,6 +8,14 @@ const getProducts = async (req, res) => {
     res.status(200).json(products);
 }
 
+//GET a product
+const getProduct = async (req, res) => {
+    const id = req.params.id;
+
+    const product = await Shop.find({_id:id});
+    res.status(200).json(product);
+}
+
 //POST a product
 const postProduct = async (req, res) => {
     const {productTitle} = req.body;
@@ -132,6 +140,7 @@ const deleteArrayItem = async (req, res) => {
 
 module.exports = {
     getProducts,
+    getProduct,
     postProduct,
     updateProduct,
     deleteProduct,

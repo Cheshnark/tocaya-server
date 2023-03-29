@@ -16,7 +16,8 @@ const profileSchema = ({
         filename: String,
         path: String,
         size: Number
-      }
+      },
+      oldFileName: String
       
     
 });
