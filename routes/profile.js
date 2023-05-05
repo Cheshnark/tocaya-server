@@ -16,7 +16,7 @@ const router = express.Router();
 router.get('/', getProfile);
 
 //Require auth for all routes below
-// router.use(requireAuth);
+router.use(requireAuth);
 
 //UPDATE profile
 router.patch('/', upload.single('profilePicture'), updateProfile);
